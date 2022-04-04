@@ -1,7 +1,35 @@
-import { FontAwesome } from '@expo/vector-icons';
-import * as Font from 'expo-font';
-import * as SplashScreen from 'expo-splash-screen';
-import { useEffect, useState } from 'react';
+import { FontAwesome } from "@expo/vector-icons";
+import { Asset } from "expo-asset";
+import * as Font from "expo-font";
+import * as SplashScreen from "expo-splash-screen";
+import { useEffect, useState } from "react";
+import { Image } from "react-native";
+
+/**
+ * Map through each image,
+ * if the imager is a local url/remote url, prefetch image
+ * if image is local image import
+ * @param images
+ * @returns
+ */
+function cacheImages(images: string[] | number[]) {
+  return images.map((image) => {
+    if (typeof image === "string") {
+      return Image.prefetch(image);
+    } else {
+      return Asset.fromModule(image).downloadAsync();
+    }
+  });
+}
+
+/**
+ * Preload local fonts
+ * @param fonts
+ * @returns
+ */
+function cacheFonts(fonts: string[] | Record<string, Font.FontSource>[]) {
+  return fonts.map((font) => Font.loadAsync(font));
+}
 
 export default function useCachedResources() {
   const [isLoadingComplete, setLoadingComplete] = useState(false);
@@ -12,11 +40,18 @@ export default function useCachedResources() {
       try {
         SplashScreen.preventAutoHideAsync();
 
-        // Load fonts
-        await Font.loadAsync({
-          ...FontAwesome.font,
-          'space-mono': require('../assets/fonts/SpaceMono-Regular.ttf'),
-        });
+        const imageAssets = cacheImages([
+          require("../assets/images/login/login-background.png"), // login image
+        ]);
+
+        const fontAssets = cacheFonts([
+          FontAwesome.font,
+          { RobotoThin: require("../assets/fonts/Roboto-Thin.ttf") },
+          { RobotoMedium: require("../assets/fonts/Roboto-Medium.ttf") },
+          { RobotoBold: require("../assets/fonts/Roboto-Bold.ttf") },
+        ]);
+
+        await Promise.all([...imageAssets, ...fontAssets]);
       } catch (e) {
         // We might want to provide this error information to an error reporting service
         console.warn(e);
