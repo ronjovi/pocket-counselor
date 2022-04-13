@@ -11,7 +11,7 @@ import { AuthedStackScreenProps, PublicStackScreenProps } from "../../types";
  */
 export default function NotFoundScreen({
   navigation,
-}: PublicStackScreenProps<"NotFound"> | AuthedStackScreenProps<"NotFound">) {
+}: PublicStackScreenProps<"NotFound">) {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>This screen doesn't exist.</Text>

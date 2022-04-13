@@ -46,7 +46,8 @@ export default function Navigation(props: IProps) {
       theme={colorScheme === "dark" ? DarkTheme : DefaultTheme}
     >
       <ActivityLoader />
-      {!isEmpty(token) ? <AuthedNavigator /> : <PublicNavigator />}
+      {/* {!isEmpty(token) ? <AuthedNavigator /> : <PublicNavigator />} */}
+      <PublicNavigator />
     </NavigationContainer>
   );
 }

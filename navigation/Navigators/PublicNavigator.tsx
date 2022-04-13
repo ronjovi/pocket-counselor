@@ -1,6 +1,7 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { ColorSchemeName } from "react-native";
 import ModalScreen from "../../screens/ModalScreen";
+import LandingScreen from "../../screens/public/LandingScreen";
 import LoginScreen from "../../screens/public/LoginScreen";
 import NotFoundScreen from "../../screens/shared/NotFoundScreen";
 import { PublicStackParamList } from "../../types";
@@ -22,6 +23,18 @@ export default function PublicNavigator() {
     <Stack.Navigator>
       <Stack.Screen
         name="Root"
+        component={LandingScreen}
+        options={{ headerShown: false }}
+      />
+
+      <Stack.Screen
+        name="Login"
+        component={LoginScreen}
+        options={{ headerShown: false }}
+      />
+
+      <Stack.Screen
+        name="Signup"
         component={LoginScreen}
         options={{ headerShown: false }}
       />

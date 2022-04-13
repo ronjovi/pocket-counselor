@@ -7,13 +7,12 @@ import Colors from "../../constants/Colors";
 import useColorScheme from "../../hooks/useColorScheme";
 import TabOneScreen from "../../screens/TabOneScreen";
 import TabTwoScreen from "../../screens/TabTwoScreen";
-import { RootTabParamList, RootTabScreenProps } from "../../types";
 
 /**
  * A bottom tab navigator displays tab buttons on the bottom of the display to switch screens.
  * https://reactnavigation.org/docs/bottom-tab-navigator
  */
-const BottomTab = createBottomTabNavigator<RootTabParamList>();
+const BottomTab = createBottomTabNavigator<any>();
 
 export default function BottomTabNavigator() {
   // get color scheme
@@ -26,7 +25,7 @@ export default function BottomTabNavigator() {
         tabBarActiveTintColor: Colors[colorScheme].tint,
       }}
     >
-      <BottomTab.Screen
+      {/* <BottomTab.Screen
         name="TabOne"
         component={TabOneScreen}
         options={({ navigation }: RootTabScreenProps<"TabOne">) => ({
@@ -48,7 +47,7 @@ export default function BottomTabNavigator() {
             </Pressable>
           ),
         })}
-      />
+      /> */}
       <BottomTab.Screen
         name="TabTwo"
         component={TabTwoScreen}

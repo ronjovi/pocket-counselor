@@ -1,16 +1,12 @@
 import { StyleSheet, Image, Dimensions } from "react-native";
 
-import { Text, View } from "../../components/Themed";
+import { View } from "../../components/Themed";
 import { AuthedStackScreenProps, PublicStackScreenProps } from "../../types";
 import useColorScheme from "../../hooks/useColorScheme";
 import { useStatusBar } from "../../hooks/useStatusBar";
 import React, { useState } from "react";
-import { TapGestureHandler } from "react-native-gesture-handler";
-
-interface IProps {
-  navigation: PublicStackScreenProps<"NotFound"> | AuthedStackScreenProps<"NotFound">
-}
-
+import { TapGestureHandler, TouchableOpacity } from "react-native-gesture-handler";
+import { Button, Text } from "native-base";
 
 /**
  * Renders the login screen. Users can enter their account
@@ -18,9 +14,9 @@ interface IProps {
  * @param param0
  * @returns
  */
-export default function LoginScreen({
+export default function LandingScreen({
   navigation,
-}: IProps) {
+}: PublicStackScreenProps<"Root">) {
 
   // update status bar to use dark mode 
   useStatusBar("dark-content");
@@ -28,11 +24,18 @@ export default function LoginScreen({
   // get window width and height
   const { width, height } = Dimensions.get("window");
 
-  const onStateChange= (val:any) =>{
-    console.log(val)
-  }
   return (
     <View style={styles.container}>
+      <View
+        style={{
+          ...StyleSheet.absoluteFillObject,
+        }}
+      >
+        <Image
+          source={require("../../assets/images/login/login-background.png")}
+          style={styles.image}
+        />
+      </View>
 
       <View
         style={{
@@ -42,6 +45,11 @@ export default function LoginScreen({
           paddingBottom: 50,
         }}
       >
+
+        <Button  style={styles.button} onPress={() => navigation.navigate("Login")}
+        >
+          <Text>SIGN IN</Text>
+        </Button>
 
       </View>
     </View>
@@ -60,16 +68,11 @@ const styles = StyleSheet.create({
     height: undefined,
   },
   button: {
-    backgroundColor: "#fff",
-    height: 65,
     marginHorizontal: 20,
-    borderRadius: 15,
     alignItems: "center",
     justifyContent: "center",
   },
   text: {
-    color: "#00101b",
-    fontSize: 21,
-    fontFamily: "RobotoMedium",
+
   },
 });
