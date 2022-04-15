@@ -1,12 +1,8 @@
 import { StyleSheet, Image, Dimensions } from "react-native";
-
-import { View } from "../../components/Themed";
-import { AuthedStackScreenProps, PublicStackScreenProps } from "../../types";
-import useColorScheme from "../../hooks/useColorScheme";
+import { PublicStackScreenProps } from "../../types";
 import { useStatusBar } from "../../hooks/useStatusBar";
-import React, { useState } from "react";
-import { TapGestureHandler, TouchableOpacity } from "react-native-gesture-handler";
-import { Button, Text } from "native-base";
+import React from "react";
+import { Button, Text, useColorMode, useColorModeValue, View } from "native-base";
 
 /**
  * Renders the login screen. Users can enter their account
@@ -17,12 +13,13 @@ import { Button, Text } from "native-base";
 export default function LandingScreen({
   navigation,
 }: PublicStackScreenProps<"Root">) {
-
-  // update status bar to use dark mode 
+  // update status bar to use dark mode
   useStatusBar("dark-content");
 
   // get window width and height
   const { width, height } = Dimensions.get("window");
+
+  const colorMode = useColorMode()
 
   return (
     <View style={styles.container}>
@@ -39,18 +36,20 @@ export default function LandingScreen({
 
       <View
         style={{
-          height: height / 3,
+          height: height / 2.8,
           justifyContent: "flex-end",
           backgroundColor: "transparent",
           paddingBottom: 50,
         }}
       >
-
-        <Button  style={styles.button} onPress={() => navigation.navigate("Login")}
+        <Button
+          _light={{ bg: "primary.900" }}
+          _dark={{ bg: "error.500" }}
+          style={styles.button}
+          onPress={() => {colorMode.toggleColorMode()}}
         >
-          <Text>SIGN IN</Text>
+          <Text style={styles.text}>SIGN IN</Text>
         </Button>
-
       </View>
     </View>
   );
@@ -73,6 +72,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   text: {
-
+    color: "#fff",
+    fontSize: 17,
   },
 });

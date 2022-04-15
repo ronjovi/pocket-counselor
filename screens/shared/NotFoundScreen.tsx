@@ -1,7 +1,7 @@
+import { Text, View } from "native-base";
+import React from "react";
 import { StyleSheet, TouchableOpacity } from "react-native";
-
-import { Text, View } from "../../components/Themed";
-import { AuthedStackScreenProps, PublicStackScreenProps } from "../../types";
+import { PublicStackScreenProps } from "../../types";
 
 /**
  * Renders not found screen. Users can click on the go to home

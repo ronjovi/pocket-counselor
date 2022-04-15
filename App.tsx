@@ -1,46 +1,67 @@
 import { StatusBar } from "expo-status-bar";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import useCachedResources from "./hooks/useCachedResources";
-import useColorScheme from "./hooks/useColorScheme";
 import Navigation from "./navigation";
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 import { View } from "react-native";
 import { persistStore } from "redux-persist";
 import { store } from "./store/store";
-import { extendTheme, NativeBaseProvider } from "native-base";
+import {
+  extendTheme,
+  NativeBaseProvider,
+  StorageManager,
+  ColorMode,
+} from "native-base";
 import React from "react";
+import { primary } from "./constants/Colors";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 // create app presistor
 const persistor = persistStore(store);
 
+// Define the colorModeManager,
+// here we are using react-native-async-storage (https://react-native-async-storage.github.io/async-storage/)
+const colorModeManager: StorageManager = {
+  get: async () => {
+    try {
+      let val = await AsyncStorage.getItem("@color-mode");
+      return val === "dark" ? "dark" : "light";
+    } catch (e) {
+      return "light";
+    }
+  },
+  set: async (value: ColorMode) => {
+    try {
+      if(value) await AsyncStorage.setItem("@color-mode", value);
+    } catch (e) {
+      console.log(e);
+    }
+  },
+};
+
 export default function App() {
   const isLoadingComplete = useCachedResources();
-  const colorScheme = useColorScheme();
 
   const theme = extendTheme({
     colors: {
-      // Add new color
+      // set primary
       primary: {
-        50: '#E3F2F9',
-        100: '#C5E4F3',
-        200: '#A2D4EC',
-        300: '#7AC1E4',
-        400: '#47A9DA',
-        500: '#0088CC',
-        600: '#007AB8',
-        700: '#006BA1',
-        800: '#005885',
-        900: '#003F5E',
-      },
-      // Redefinig only one shade, rest of the color will remain same.
-      amber: {
-        400: '#d97706',
+        50: primary.shade_50,
+        100: primary.shade_100,
+        200: primary.shade_200,
+        300: primary.shade_300,
+        400: primary.shade_400,
+        500: primary.shade_500,
+        600: primary.shade_600,
+        700: primary.shade_700,
+        800: primary.shade_800,
+        900: primary.shade_900,
       },
     },
     config: {
       // Changing initialColorMode to 'dark'
-      initialColorMode: 'dark',
+      initialColorMode: "light",
     },
   });
 
@@ -52,8 +73,11 @@ export default function App() {
         <PersistGate loading={<View />} persistor={persistor}>
           <StatusBar style="light" />
           <SafeAreaProvider>
-            <NativeBaseProvider theme={theme}>
-              <Navigation colorScheme={colorScheme} />
+            <NativeBaseProvider
+              theme={theme}
+              colorModeManager={colorModeManager}
+            >
+              <Navigation />
             </NativeBaseProvider>
           </SafeAreaProvider>
         </PersistGate>

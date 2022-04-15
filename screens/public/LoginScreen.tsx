@@ -1,16 +1,14 @@
-import { StyleSheet, Image, Dimensions } from "react-native";
-
-import { Text, View } from "../../components/Themed";
+import { StyleSheet, Dimensions } from "react-native";
 import { AuthedStackScreenProps, PublicStackScreenProps } from "../../types";
-import useColorScheme from "../../hooks/useColorScheme";
 import { useStatusBar } from "../../hooks/useStatusBar";
-import React, { useState } from "react";
-import { TapGestureHandler } from "react-native-gesture-handler";
+import React from "react";
+import { View } from "native-base";
 
 interface IProps {
-  navigation: PublicStackScreenProps<"NotFound"> | AuthedStackScreenProps<"NotFound">
+  navigation:
+    | PublicStackScreenProps<"NotFound">
+    | AuthedStackScreenProps<"NotFound">;
 }
-
 
 /**
  * Renders the login screen. Users can enter their account
@@ -18,22 +16,18 @@ interface IProps {
  * @param param0
  * @returns
  */
-export default function LoginScreen({
-  navigation,
-}: IProps) {
-
-  // update status bar to use dark mode 
+export default function LoginScreen({ navigation }: IProps) {
+  // update status bar to use dark mode
   useStatusBar("dark-content");
 
   // get window width and height
   const { width, height } = Dimensions.get("window");
 
-  const onStateChange= (val:any) =>{
-    console.log(val)
-  }
+  const onStateChange = (val: any) => {
+    console.log(val);
+  };
   return (
     <View style={styles.container}>
-
       <View
         style={{
           height: height / 3,
@@ -41,9 +35,7 @@ export default function LoginScreen({
           backgroundColor: "transparent",
           paddingBottom: 50,
         }}
-      >
-
-      </View>
+      ></View>
     </View>
   );
 }
