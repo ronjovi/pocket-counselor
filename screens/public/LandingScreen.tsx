@@ -2,7 +2,13 @@ import { StyleSheet, Image, Dimensions } from "react-native";
 import { PublicStackScreenProps } from "../../types";
 import { useStatusBar } from "../../hooks/useStatusBar";
 import React from "react";
-import { Button, Text, useColorMode, useColorModeValue, View } from "native-base";
+import {
+  Button,
+  Text,
+  useColorMode,
+  useColorModeValue,
+  View,
+} from "native-base";
 
 /**
  * Renders the login screen. Users can enter their account
@@ -19,7 +25,7 @@ export default function LandingScreen({
   // get window width and height
   const { width, height } = Dimensions.get("window");
 
-  const colorMode = useColorMode()
+  const colorMode = useColorMode();
 
   return (
     <View style={styles.container}>
@@ -36,19 +42,37 @@ export default function LandingScreen({
 
       <View
         style={{
+        
           height: height / 2.8,
-          justifyContent: "flex-end",
-          backgroundColor: "transparent",
+          justifyContent: "flex-start",
+          backgroundColor: "red",
+          flexDirection: 'column',
           paddingBottom: 50,
+          display: 'flex'
         }}
       >
         <Button
-          _light={{ bg: "primary.900" }}
-          _dark={{ bg: "error.500" }}
-          style={styles.button}
-          onPress={() => {colorMode.toggleColorMode()}}
+          size="lg"
+          _light={{ bg: "#fff", _pressed: {bg: 'secondary.500'},}}
+          _dark={{ bg: "secondary.500" }}
+        
+          onPress={() => {
+            console.log("hi");
+          }}
         >
-          <Text style={styles.text}>SIGN IN</Text>
+          <Text style={styles.text}>Get Started</Text>
+        </Button>
+
+        <Button
+          size="sm"
+          _light={{ bg: "secondary.500" }}
+          _dark={{ bg: "secondary.500" }}
+          style={{flex: '0 0 10'}}
+          onPress={() => {
+            console.log("hi");
+          }}
+        >
+          <Text style={styles.text}>Get Started</Text>
         </Button>
       </View>
     </View>

@@ -10,3 +10,16 @@ export const primary = {
   shade_800: "#10393c",
   shade_900: "#001416",
 };
+
+export const secondary = {
+  shade_50: "#fff6dc",
+  shade_100: "#fbe3b2",
+  shade_200: "#f7d186",
+  shade_300: "#f2be57",
+  shade_400: "#eeab2a",
+  shade_500: "#d59211",
+  shade_600: "#a6720a",
+  shade_700: "#775104",
+  shade_800: "#483100",
+  shade_900: "#1d0f00",
+};

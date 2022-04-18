@@ -14,7 +14,7 @@ import {
   ColorMode,
 } from "native-base";
 import React from "react";
-import { primary } from "./constants/Colors";
+import { primary, secondary } from "./constants/Colors";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 // create app presistor
@@ -43,6 +43,7 @@ const colorModeManager: StorageManager = {
 export default function App() {
   const isLoadingComplete = useCachedResources();
 
+  console.log("update theme")
   const theme = extendTheme({
     colors: {
       // set primary
@@ -58,10 +59,22 @@ export default function App() {
         800: primary.shade_800,
         900: primary.shade_900,
       },
+      // set secondary
+      secondary: {
+        50: secondary.shade_50,
+        100: secondary.shade_100,
+        200: secondary.shade_200,
+        300: secondary.shade_300,
+        400: secondary.shade_400,
+        500: secondary.shade_500,
+        600: secondary.shade_600,
+        700: secondary.shade_700,
+        800: secondary.shade_800,
+        900: secondary.shade_900,
+      },
     },
     config: {
-      // Changing initialColorMode to 'dark'
-      initialColorMode: "light",
+      useSystemColorMode: true,
     },
   });
 
@@ -75,7 +88,7 @@ export default function App() {
           <SafeAreaProvider>
             <NativeBaseProvider
               theme={theme}
-              colorModeManager={colorModeManager}
+             
             >
               <Navigation />
             </NativeBaseProvider>
