@@ -53,7 +53,7 @@ export default function LandingScreen({
       >
         <Button
           size="lg"
-          _light={{ bg: "#fff", _pressed: {bg: 'secondary.500'},}}
+          _light={{ bg: "#fff", _pressed: {bg: 'secondary.500'}}}
           _dark={{ bg: "secondary.500" }}
         
           onPress={() => {
