@@ -1,67 +1,116 @@
-import { StyleSheet, Dimensions } from "react-native";
-import { AuthedStackScreenProps, PublicStackScreenProps } from "../../types";
+import { Platform, StyleSheet } from "react-native";
+import { PublicStackScreenProps } from "../../types";
 import { useStatusBar } from "../../hooks/useStatusBar";
 import React from "react";
-import { View } from "native-base";
+import {
+  Box,
+  Button,
+  Center,
+  FormControl,
+  Heading,
+  HStack,
+  Input,
+  KeyboardAvoidingView,
+  ScrollView,
+  Text,
+  View,
+  VStack,
+} from "native-base";
+import Logo from "../../components/Logo";
+import { Link } from "@react-navigation/native";
+import FormLabel from "../../components/FormLabel";
+import { useHeaderHeight } from "@react-navigation/elements";
 
-interface IProps {
-  navigation:
-    | PublicStackScreenProps<"NotFound">
-    | AuthedStackScreenProps<"NotFound">;
-}
-
+const topOffset = 50;
 /**
  * Renders the login screen. Users can enter their account
  * email and password in order to access their account
  * @param param0
  * @returns
  */
-export default function LoginScreen({ navigation }: IProps) {
+export default function LoginScreen({
+  navigation,
+}: PublicStackScreenProps<"Login">) {
   // update status bar to use dark mode
   useStatusBar("dark-content");
 
-  // get window width and height
-  const { width, height } = Dimensions.get("window");
+  const headerHeight = useHeaderHeight();
 
-  const onStateChange = (val: any) => {
-    console.log(val);
-  };
   return (
-    <View style={styles.container}>
-      <View
-        style={{
-          height: height / 3,
-          justifyContent: "flex-end",
-          backgroundColor: "transparent",
-          paddingBottom: 50,
-        }}
-      ></View>
+    <View style={styles.screenContainer}>
+      <VStack
+        mt={topOffset}
+        pl={5}
+        pr={5}
+        flex="1"
+        justifyContent="space-between"
+        w="100%"
+      >
+        <View>
+          <Logo />
+        </View>
+        <Center flex={1} px="3">
+          <KeyboardAvoidingView
+            h={{
+              base: "200px",
+              lg: "auto",
+            }}
+            keyboardVerticalOffset={topOffset + 40}
+            behavior={Platform.OS === "ios" ? "padding" : "height"}
+            flex="1"
+            w="100%"
+          >
+            <Center flex="1" w="100%">
+              <VStack justifyContent="flex-end" w="100%">
+                <Heading color={"coolGray.900"} size="lg" mb="3">
+                  Welcome
+                </Heading>
+
+                <Input placeholder="Email Address" mt="10" mb="4" />
+                <Button mb="4">Proceed</Button>
+              </VStack>
+            </Center>
+          </KeyboardAvoidingView>
+        </Center>
+      </VStack>
+
+      {/* <Center flex={1} px="3">
+        <Logo />
+        <KeyboardAvoidingView
+          h={{
+            base: "600px",
+            lg: "auto",
+          }}
+          behavior={Platform.OS === "ios" ? "padding" : "height"}
+          style={{ flex: 1, backgroundColor: 'red' }}
+        >
+          <VStack mt={50} ml={5} flex="1" justifyContent="flex-end" w="100%">
+            <Heading color={"coolGray.400"} size="lg" mb="3">
+              Welcome
+            </Heading>
+
+            <Input placeholder="Email Address" mt="10" mb="4" />
+            <Button mb="4">Proceed</Button>
+          </VStack>
+        </KeyboardAvoidingView>
+      </Center> */}
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
+  screenContainer: {
     flex: 1,
-    backgroundColor: "white",
-    justifyContent: "flex-end",
-  },
-  image: {
-    flex: 1,
-    width: undefined,
-    height: undefined,
+    backgroundColor: "#fff",
   },
   button: {
-    backgroundColor: "#fff",
-    height: 65,
-    marginHorizontal: 20,
-    borderRadius: 15,
     alignItems: "center",
     justifyContent: "center",
   },
   text: {
-    color: "#00101b",
-    fontSize: 21,
-    fontFamily: "RobotoMedium",
+    textAlign: "center",
+    fontFamily: "RobotoBold",
+    fontSize: 19,
+    color: "#fff",
   },
 });

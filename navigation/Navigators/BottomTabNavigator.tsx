@@ -3,7 +3,6 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import React from "react";
 import { Pressable } from "react-native";
 import TabBarIcon from "../../components/TabBarIcon";
-import Colors from "../../constants/Colors";
 import useColorScheme from "../../hooks/useColorScheme";
 import TabOneScreen from "../../screens/TabOneScreen";
 import TabTwoScreen from "../../screens/TabTwoScreen";
@@ -21,9 +20,6 @@ export default function BottomTabNavigator() {
   return (
     <BottomTab.Navigator
       initialRouteName="TabOne"
-      screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme].tint,
-      }}
     >
       {/* <BottomTab.Screen
         name="TabOne"

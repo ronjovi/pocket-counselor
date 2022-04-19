@@ -33,7 +33,7 @@ const colorModeManager: StorageManager = {
   },
   set: async (value: ColorMode) => {
     try {
-      if(value) await AsyncStorage.setItem("@color-mode", value);
+      if (value) await AsyncStorage.setItem("@color-mode", value);
     } catch (e) {
       console.log(e);
     }
@@ -43,8 +43,26 @@ const colorModeManager: StorageManager = {
 export default function App() {
   const isLoadingComplete = useCachedResources();
 
-  console.log("update theme")
   const theme = extendTheme({
+    fontConfig: {
+      Roboto: {
+        300: {
+          normal: "RobotoLight",
+          italic: "RobotoLightItalic",
+        },
+        400: {
+          normal: "RobotoRegular",
+        },
+        500: {
+          normal: "RobotoMedium",
+          italic: "RobotoMediumItalic",
+        },
+        700: {
+          normal: "RobotoBold",
+          italic: "RobotoBoldItalic",
+        },
+      },
+    },
     colors: {
       // set primary
       primary: {
@@ -73,8 +91,42 @@ export default function App() {
         900: secondary.shade_900,
       },
     },
+    components: {
+      Text: {
+        defaultProps: {
+          size: "md",
+          fontFamily: "RobotoRegular",
+        },
+        sizes: {
+          xl: {
+            fontSize: "64px",
+          },
+          lg: {
+            fontSize: "32px",
+          },
+          md: {
+            fontSize: "17px",
+          },
+          sm: {
+            fontSize: "15px",
+          },
+        },
+      },
+      Heading: {
+        defaultProps: {
+          fontFamily: "RobotoBold",
+        },
+      },
+      FormControlLabel: {
+        baseStyle: {
+          fontFamily: "RobotoBold",
+        },
+     
+      },
+    },
     config: {
       useSystemColorMode: true,
+      initialColorMode: "light",
     },
   });
 
@@ -86,10 +138,7 @@ export default function App() {
         <PersistGate loading={<View />} persistor={persistor}>
           <StatusBar style="light" />
           <SafeAreaProvider>
-            <NativeBaseProvider
-              theme={theme}
-             
-            >
+            <NativeBaseProvider theme={theme}>
               <Navigation />
             </NativeBaseProvider>
           </SafeAreaProvider>

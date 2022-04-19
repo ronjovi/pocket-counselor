@@ -46,9 +46,13 @@ export default function useCachedResources() {
 
         const fontAssets = cacheFonts([
           FontAwesome.font,
-          { RobotoThin: require("../assets/fonts/Roboto-Thin.ttf") },
+          { RobotoThin: require("../assets/fonts/Roboto-Light.ttf") },
           { RobotoMedium: require("../assets/fonts/Roboto-Medium.ttf") },
           { RobotoBold: require("../assets/fonts/Roboto-Bold.ttf") },
+          { RobotoThinItalic: require("../assets/fonts/Roboto-LightItalic.ttf") },
+          { RobotoMediumItalic: require("../assets/fonts/Roboto-MediumItalic.ttf") },
+          { RobotoBoldItalic: require("../assets/fonts/Roboto-BoldItalic.ttf") },
+          { RobotoRegular: require("../assets/fonts/Roboto-Regular.ttf") },
         ]);
 
         await Promise.all([...imageAssets, ...fontAssets]);

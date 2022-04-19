@@ -17,7 +17,7 @@ const Stack = createNativeStackNavigator<PublicStackParamList>();
  */
 export default function PublicNavigator() {
   return (
-    <Stack.Navigator>
+    <Stack.Navigator initialRouteName="Login">
       <Stack.Screen
         name="Root"
         component={LandingScreen}
